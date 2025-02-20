@@ -1,0 +1,84 @@
+/* Fondo del Navbar */
+.custom-navbar {
+    background-color: #2b2f36 !important;
+    padding: 10px 0;
+  }
+  
+  /* Centrar el contenido */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  /* Logo */
+  .navbar-brand img {
+    height: auto;
+    width: 80px;
+    margin-right: 300px;
+  }
+  
+  /* Menú de navegación */
+  .navbar-nav {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #b0b0b0 !important;
+    font-weight: bold;
+    transition: color 0.3s;
+    font-size: 14px;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: white !important;
+  }
+  
+  /* Estilo del buscador */
+  .search-box {
+    background-color: #1e1f22;
+    padding: 3px 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    width: 150px; /* Reducido */
+  }
+  
+  .search-input {
+    background: none;
+    border: none;
+    color: white;
+    padding: 3px 5px;
+    outline: none;
+    font-size: 12px;
+  }
+  
+  .search-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .search-btn i {
+    font-size: 14px; /* Lupa más pequeña */
+  }
+  
+  /* Botón de Login */
+  .login-btn {
+    background-color: #1e1f22;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 4px 12px;
+    font-size: 12px; /* Texto más pequeño */
+    border: none;
+    transition: 0.3s;
+  }
+  
+  .login-btn:hover {
+    background-color: #44474d;
+  }
+  

@@ -1,0 +1,16 @@
+<div class="container mt-4">
+    <h2 class="text-center mb-4"> Directorio de Animes</h2>
+  
+    <div class="anime-grid">
+      @for (anime of animes; track anime.mal_id) {
+        <div class="anime-card">
+          <img [src]="anime.images.jpg.image_url" class="anime-img" [alt]="anime.title">
+          <div class="anime-info">
+            <span class="episode-badge">Episodios: {{ anime.episodes ?? 'Desconocido' }}</span>
+            <h6 class="anime-title">{{ anime.title }}</h6>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  
