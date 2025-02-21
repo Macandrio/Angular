@@ -1,0 +1,52 @@
+.search-box {
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* Permite que el dropdown se posicione respecto a este */
+  }
+  
+  .search-input {
+    border: none;
+    outline: none;
+    flex: 1;
+  }
+  
+  .search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .search-btn i {
+    font-size: 1.2rem;
+    color: #007bff;
+  }
+  
+  /* Estilos del dropdown */
+  .resultados-dropdown {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%; /* Hace que el dropdown tenga el mismo ancho que el input */
+    left: 0; /* Asegura que inicie desde el borde izquierdo */
+    top: 100%; /* Coloca el dropdown justo debajo del input */
+    position: absolute; /* Se posiciona en relación con el `.search-box` */
+    z-index: 1050; /* Se asegura de que esté por encima de otros elementos */
+  }
+  
+  .resultados-dropdown li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .resultados-dropdown li:hover {
+    background: #f1f1f1;
+  }
+  

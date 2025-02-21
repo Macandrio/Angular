@@ -10,5 +10,4 @@ import { BuscadorComponent } from '../buscador/buscador.component';
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
-
 }
