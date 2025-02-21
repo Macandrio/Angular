@@ -1,73 +1,76 @@
-<div class="container mt-4">
-    <h2 class="text-center"><i class="bi bi-envelope-fill"></i> Contacto</h2>
-  
-    <form [formGroup]="contactoForm" (ngSubmit)="enviarFormulario()" novalidate class="p-4 border rounded shadow">
-      <!-- Nombre -->
-      <div class="mb-3">
-        <label class="form-label"><i class="bi bi-person-fill"></i> Nombre completo</label>
-        <input type="text" class="form-control" formControlName="nombre" placeholder="Tu nombre">
+<div class="contact-container py-5">
+  <div class="card shadow-lg p-5">
+    <h2 class="text-center mb-4">Formulario de Contacto</h2>
 
-        @if(contactoForm.get('nombre')!.touched && contactoForm.get('nombre')!.hasError('required')){ 
-          <small class="text-danger">El nombre es obligatorio.</small>  
-        }
-        @if(contactoForm.get('nombre')!.hasError('minlength')){ 
-          <small class="text-danger">Debe tener al menos 5 caracteres.</small>  
+    <form [formGroup]="contactForm" (ngSubmit)="enviarCorreo()">
+      
+      <!-- Nombre y Apellidos -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input id="nombre" type="text" class="form-control custom-input" formControlName="nombre" />
+          @if(contactForm.get('nombre')!.touched && contactForm.get('nombre')!.hasError('required')) {
+            <p class="text-danger small">El campo es obligatorio</p>
+          }
+        </div>
+        <div class="col-md-6">
+          <label for="apellidos" class="form-label">Apellidos</label>
+          <input id="apellidos" type="text" class="form-control custom-input" formControlName="apellidos" />
+          @if(contactForm.get('apellidos')!.touched && contactForm.get('apellidos')!.hasError('required')) {
+            <p class="text-danger small">El campo es obligatorio</p>
+          }
+        </div>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="mb-4">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input id="telefono" type="tel" class="form-control custom-input" formControlName="telefono" />
+        @if(contactForm.get('telefono')!.touched && contactForm.get('telefono')!.hasError('required')) {
+          <p class="text-danger small">El campo es obligatorio</p>
         }
       </div>
-  
-      <!-- Email -->
-      <div class="mb-3">
-        <label class="form-label"><i class="bi bi-envelope"></i> Correo Electrónico</label>
-        <input type="email" class="form-control" formControlName="email" placeholder="correo@ejemplo.com">
-        @if(contactoForm.get('email')!.touched && contactoForm.get('email')!.hasError('required')){ 
-          <small class="text-danger">El email es obligatorio.</small>  
+
+      <!-- Correo electrónico -->
+      <div class="mb-4">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input id="email" type="email" class="form-control custom-input" formControlName="email" />
+        @if(contactForm.get('email')!.touched && contactForm.get('email')!.hasError('required')) {
+          <p class="text-danger small">El campo es obligatorio</p>
         }
-        @if(contactoForm.get('email')!.hasError('email')){ 
-          <small class="text-danger">Ingresa un correo válido.</small>  
-        }
-      </div>
-  
-      <!-- Asunto -->
-      <div class="mb-3">
-        <label class="form-label"><i class="bi bi-chat-text"></i> Asunto</label>
-        <input type="text" class="form-control" formControlName="asunto" placeholder="Motivo de contacto">
-        @if(contactoForm.get('asunto')!.touched && contactoForm.get('asunto')!.hasError('required')){ 
-          <small class="text-danger">⚠️ El asunto es obligatorio.</small>  
-        }
-        @if(contactoForm.get('asunto')!.hasError('minlength')){ 
-          <small class="text-danger">Debe tener al menos 5 caracteres.</small>  
+        @if(contactForm.get('email')!.hasError('email')) {
+          <p class="text-danger small">Ingrese un correo válido</p>
         }
       </div>
-  
+
       <!-- Mensaje -->
-      <div class="mb-3">
-        <label class="form-label"><i class="bi bi-pencil"></i> Mensaje</label>
-        <textarea class="form-control" formControlName="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea>
-        @if(contactoForm.get('mensaje')!.touched && contactoForm.get('mensaje')!.hasError('required')){ 
-          <small class="text-danger">El mensaje es obligatorio.</small>  
+      <div class="mb-4">
+        <label for="mensaje" class="form-label">Mensaje</label>
+        <textarea id="mensaje" class="form-control custom-input" formControlName="mensaje" rows="4"></textarea>
+        @if(contactForm.get('mensaje')!.touched && contactForm.get('mensaje')!.hasError('required')) {
+          <p class="text-danger small">El campo es obligatorio</p>
         }
-        @if(contactoForm.get('mensaje')!.hasError('minlength')){ 
-          <small class="text-danger">El mensaje debe tener al menos 10 caracteres.</small>  
-        }
-        @if(contactoForm.get('mensaje')!.hasError('maxlength')){ 
-          <small class="text-danger">No puede superar los 500 caracteres.</small>  
+        @if(contactForm.get('mensaje')!.hasError('minlength')) {
+          <p class="text-danger small">El mensaje debe tener al menos 10 caracteres</p>
         }
       </div>
-  
-      <button type="submit" class="btn btn-primary w-100" (click)="onButtonClick()">
-        Enviar Mensaje
-      </button>
-      
-      
-      
-      
-  
-      <!-- Mensaje de exito -->
-      @if (enviado) {
-        <div class="alert alert-success mt-3 text-center">
-            ¡Correo enviado con éxito! Revisa tu bandeja de entrada.
+
+      <!-- Botón de enviar -->
+      <button type="submit" class="btn btn-primary custom-btn" [disabled]="contactForm.invalid">Enviar</button>
+
+      <!-- Mensaje de éxito -->
+      @if(enviado) {
+        <div class="alert alert-success mt-3">
+          ✅ ¡Tu mensaje ha sido enviado con éxito!
+        </div>
+      }
+
+      <!-- Mensaje de error -->
+      @if(error) {
+        <div class="alert alert-danger mt-3">
+          ❌ Ocurrió un error al enviar tu mensaje. Inténtalo de nuevo.
         </div>
       }
     </form>
   </div>
-  
+</div>

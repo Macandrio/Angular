@@ -1,54 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import emailjs from 'emailjs-com';
+import { Component } from '@angular/core';
+import { FormsModule, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import emailjs from '@emailjs/browser';
+//import emailjs from 'emailjs-com';
 
 @Component({
   selector: 'app-contacto',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './contacto.component.html',
-  styleUrl: './contacto.component.css'
+  styleUrls: ['./contacto.component.css']
 })
-export class ContactoComponent implements OnInit {
-  contactoForm: FormGroup;
-  public enviado: boolean = false;
 
-  emailJsServiceId = 'service_51sqv6y';
-  emailJsTemplateId = 'template_5d7hjdm';
-  emailJsUserId = 'HKDqLYgK-D8FBTkAW';
+export class ContactoComponent {
+  public contactForm: FormGroup;
+  public enviado:boolean = false;
+  public error:boolean = false;
 
-  constructor(public fb: FormBuilder) {
-    this.contactoForm = this.fb.group({
-      nombre: new FormControl ('', [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z ]+$')]),
-      email: new FormControl ('', [Validators.required, Validators.email]),
-      asunto: new FormControl ('', [Validators.required, Validators.minLength(5)]),
-      mensaje: new FormControl ('', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]),
+  constructor(private fb: FormBuilder) {
+    this.contactForm = this.fb.group({
+      nombre: new FormControl('', Validators.required),
+      apellidos: new FormControl('', Validators.required),
+      telefono: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      mensaje: new FormControl('', Validators.required, )
     });
   }
 
-  ngOnInit() {}
-
-  enviarFormulario() {
-    if (this.contactoForm.valid) {
-      const templateParams = {
-        from_name: this.contactoForm.value.nombre,
-        from_email: this.contactoForm.value.email,
-        subject: this.contactoForm.value.asunto,
-        message: this.contactoForm.value.mensaje,
-      };
-
-      emailjs.send(this.emailJsServiceId, this.emailJsTemplateId, templateParams, this.emailJsUserId)
-        .then(() => {
-          console.log("Correo enviado correctamente");
-          console.log("Enviando datos:", templateParams);
-          this.enviado = true;
-          this.contactoForm.reset();
-        })
-        .catch((error) => {
-          console.error("Error al enviar el correo:", error);
-        });
-    } else {
-      console.warn("El formulario no es válido.");
-      this.contactoForm.markAllAsTouched();
+  // Función para enviar correo con EmailJS
+  enviarCorreo() {
+    if (this.contactForm.invalid) {
+      return;
     }
+
+    const serviceID = 'service_cpr167k'; // Reemplázalo con tu Service ID de EmailJS
+    const templateID = 'template_oz9xc8k'; // Reemplázalo con tu Template ID
+    const publicKey = '3P4d9q7htp8Pf57Pt'; // Reemplázalo con tu Public Key
+
+    const datosFormulario = this.contactForm.value;
+
+    const templateParams = {
+      nombre: datosFormulario.nombre,
+      apellidos: datosFormulario.apellidos,
+      telefono: datosFormulario.telefono,
+      email: datosFormulario.email,
+      mensaje: datosFormulario.mensaje
+    };
+
+    emailjs.send(serviceID, templateID, templateParams, publicKey)
+      .then(() => {
+        this.enviado = true;
+        this.error = false;
+        this.contactForm.reset(); // Limpiar el formulario
+      })
+      .catch(() => {
+        this.enviado = false;
+        this.error = true;
+      });
   }
 }

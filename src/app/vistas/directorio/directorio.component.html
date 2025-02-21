@@ -1,16 +1,58 @@
-<div class="container mt-4">
-    <h2 class="text-center mb-4"> Directorio de Animes</h2>
-  
-    <div class="anime-grid">
-      @for (anime of animes; track anime.mal_id) {
-        <div class="anime-card">
-          <img [src]="anime.images.jpg.image_url" class="anime-img" [alt]="anime.title">
-          <div class="anime-info">
-            <span class="episode-badge">Episodios: {{ anime.episodes ?? 'Desconocido' }}</span>
-            <h6 class="anime-title">{{ anime.title }}</h6>
+<div class="container mt-3">
+  <h2 class="text-center mb-4">Directorio de Animes</h2>
+
+  <!-- Filtros -->
+  <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
+    
+    <!-- Dropdown Tipo -->
+    <div class="dropdown">
+      <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Tipo: {{ tipoSeleccionado !== 'todos' ? tipoSeleccionado : 'Todos' }}
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#" (click)="actualizarTipo($event, 'todos')">Todos</a></li>
+          @for (tipo of tiposDisponibles; track tipo) {
+            <li><a class="dropdown-item" href="#" (click)="actualizarTipo($event, tipo)">{{ tipo }}</a></li>
+          }
+
+      </ul>
+    </div>
+
+    <!-- Dropdown Género (Multi-selección) -->
+  <div class="dropdown">
+    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Género: {{ generosSeleccionados.length > 0 ? generosSeleccionados.join(', ') : 'Todos' }}
+    </button>
+    <ul class="dropdown-menu p-3">
+      @for (genero of generosDisponibles; track genero) {
+        <li class="form-check">
+          <input class="form-check-input" type="checkbox" [value]="genero" (change)="seleccionarGenero($event)" [checked]="generosSeleccionados.includes(genero)">
+          <label class="form-check-label">{{ genero }}</label>
+        </li>
+      }
+    </ul>
+  </div>
+
+
+    <!-- Botón de Filtrar -->
+    <button class="btn btn-primary" (click)="filtrarAnimes()">🔍 Filtrar</button>
+
+  </div>
+
+  <!-- Lista de animes filtrados -->
+  <div class="row">
+    @for (anime of animesFiltrados; track anime.mal_id) {
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card">
+          <img [src]="anime.images.jpg.image_url" class="card-img-top" [alt]="anime.title">
+          <div class="card-body">
+            <h6 class="card-title">{{ anime.title }}</h6>
+            <span class="badge bg-danger">Episodios: {{ anime.episodes ?? 'Desconocido' }}</span>
+            <p class="card-text">Tipo: <strong>{{ anime.type }}</strong></p>
+            <p class="card-text">Géneros: {{ getGeneroString(anime) }}</p>
           </div>
         </div>
-      }
-    </div>
+      </div>
+    }
   </div>
-  
+</div>

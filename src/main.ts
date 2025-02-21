@@ -1,11 +1,8 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient ,withFetch} from '@angular/common/http';
-import { routes } from '../src/app/app.routes';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
 
-export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(routes),
-    provideHttpClient(withFetch()) // <-- Asegúrate de agregar esto
-  ]
-};
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
+
+
