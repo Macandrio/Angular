@@ -1,0 +1,22 @@
+<div class="detalle-container">
+  @if (anime) {
+    <h2>{{ anime.title }}</h2>
+    <p><strong>Tipo:</strong> {{ anime.type }}</p>
+    <p>{{ anime.description }}</p>
+
+    <!-- Mostrar los géneros si existen -->
+    @if (anime.genres.length > 0) {
+      <h4>Géneros:</h4>
+      <ul>
+        @for (genero of anime.genres; track genero.name) {
+          <li>{{ genero.name }}</li>
+        }
+      </ul>
+    }
+
+    <!-- Botón para volver al buscador -->
+    <a routerLink="/" class="btn btn-primary mt-3">Volver</a>
+  } @else {
+    <p class="text-danger">No se encontró información del anime.</p>
+  }
+</div>
