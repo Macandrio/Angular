@@ -21,8 +21,10 @@
     <!-- Dropdown Género (Multi-selección) -->
   <div class="dropdown">
     <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Género: {{ generosSeleccionados.length > 0 ? generosSeleccionados.join(', ') : 'Todos' }}
-    </button>
+      Género: 
+      {{ generosSeleccionados.length === 0 ? 'Todos' : 
+         generosSeleccionados.length + ' seleccionados' }}
+    </button>    
     <ul class="dropdown-menu p-3">
       @for (genero of generosDisponibles; track genero) {
         <li class="form-check">

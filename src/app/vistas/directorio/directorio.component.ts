@@ -86,7 +86,7 @@ export class DirectorioComponent implements OnInit {
   
  //actualizar el tipo de drop
   actualizarTipo(event: Event, tipo: string) {
-    event.preventDefault(); // Esto previene cualquier comportamiento inesperado
+    event.preventDefault(); // Evita que la página recargue
     this.tipoSeleccionado = tipo;
     this.filtrarAnimes();
   }
@@ -101,6 +101,8 @@ export class DirectorioComponent implements OnInit {
   }
   
 
+
+  //para que en mi template se vean los generos 
   getGeneroString(anime: any): string {
     return anime.genres.map((genre: { name: string }) => genre.name).join(', ');
   }
@@ -118,7 +120,6 @@ export class DirectorioComponent implements OnInit {
       this.generosSeleccionados = this.generosSeleccionados.filter(g => g !== genero);
     }
   
-    console.log("📌 Géneros seleccionados:", this.generosSeleccionados); // Verifica que se actualizan
     this.filtrarAnimes(); // Llamar al filtro cada vez que se cambia una selección
   }
 
