@@ -51,6 +51,11 @@
                 }
               </p>
             }
+
+            <!-- ⭐ Botón de Favoritos -->
+              <button class="btn btn-warning mt-2"(click)="toggleFavorito(anime)">
+                {{ esFavorito(anime.mal_id) ? '❌ Quitar de Favoritos' : '⭐ Añadir a Favoritos' }}
+              </button>
           </div>
         </div>
       </div>

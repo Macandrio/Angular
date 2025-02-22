@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component,OnInit,ChangeDetectorRef } from '@angular/core';
 import { BuscadorComponent } from '../buscador/buscador.component';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { RegistroService } from '../../servicios/registro.service';
 
 
 
@@ -13,26 +14,23 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './menu.component.css'
 })
 
-export class MenuComponent {
-  isLoggedIn: boolean = false;
-  username: string = '';
+export class MenuComponent implements OnInit {
+  isLoggedIn = false;
+  usuario: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(
+    private registroService: RegistroService,
+  ) {}
 
   ngOnInit() {
-    // Verificar si el usuario está logueado
-    if (typeof window !== 'undefined' && localStorage) {
-      this.isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
-      this.username = localStorage.getItem('username') || '';
-    }
+    this.isLoggedIn = this.registroService.isLoggedIn();
+    this.usuario = this.registroService.getUsuarioActual();
   }
 
   logout() {
-    if (typeof window !== 'undefined' && localStorage) {
-      localStorage.setItem('isLoggedIn', 'false'); //se cambia el estado de isLoggedIn a false
-      this.isLoggedIn = false; //se cambia el estado de isLoggedIn a false
-      console.log(this.username)
-    }
+    this.registroService.logout();
+    this.isLoggedIn = false;
+    this.usuario = null;
+    window.location.reload();
   }
-
 }

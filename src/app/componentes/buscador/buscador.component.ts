@@ -28,9 +28,8 @@ export class BuscadorComponent{
   irADetalle(anime: any) {
     this.resultados = []; // Limpiar la lista de resultados
     this.searchQuery = '';
-    this.router.navigate(['/anime', anime.mal_id]).then(() => {
-      window.location.reload(); // Recargar la página después de la navegación
-    });
+    this.router.navigate(['/anime', anime.mal_id])
+    window.location.reload(); // Recargar la página después de la navegación
   }
   
 }

@@ -1,43 +1,41 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { FormsModule, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';import { RegistroService } from '../../servicios/registro.service';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  public loginForm: FormGroup;
-  public errorMessage: string = '';
+  email = '';
+  password = '';
+  isRegistering = false;
+  errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.loginForm = this.fb.group({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-    });
-  }
+  constructor(private authService: RegistroService, private router: Router) {}
 
-  login() {
-    if (this.loginForm.invalid) {
-      return;
-    }
+  authenticate() {
+    this.errorMessage = null;
 
-    const { username, password } = this.loginForm.value;
-
-    // Verificar si el usuario existe en localStorage
-    const storedPassword = localStorage.getItem(username);
-
-    if (storedPassword && storedPassword === password) {
-      localStorage.setItem('isLoggedIn', 'true');
-      
-      this.router.navigate(['']).then(() => {
-        window.location.reload();
-      });
-      
+    if (this.isRegistering) {
+      const registrado = this.authService.register(this.email, this.password);
+      if (registrado) {
+        alert('✅ Usuario registrado con éxito');
+        this.isRegistering = false; // Cambiar a modo login
+      } else {
+        this.errorMessage = "❌ El usuario ya existe.";
+      }
     } else {
-      this.errorMessage = 'Credenciales incorrectas';
+      const loggedIn = this.authService.login(this.email, this.password);
+      if (loggedIn) {
+        alert('✅ Sesión iniciada correctamente');
+        this.router.navigate([''])
+      } else {
+        this.errorMessage = "❌ Usuario o contraseña incorrectos.";
+      }
     }
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { AnimeService } from '../../servicios/anime.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { RegistroService } from '../../servicios/registro.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class AnimeDetalleComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router,
     private animeService: AnimeService,
+    private favorito: RegistroService,
     private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
@@ -35,5 +37,20 @@ export class AnimeDetalleComponent implements OnInit {
   irAProductor(producer: any) {
     this.router.navigate(['productor', producer.mal_id]);
   }
+  
+  // ✅ Método para alternar entre añadir y quitar de favoritos
+  toggleFavorito(anime: any): void {
+    if (this.esFavorito(anime.id)) {
+      this.favorito.removeFavorito(anime.id);
+    } else {
+      this.favorito.addFavorito(anime);
+    }
+  }
+
+  // ✅ Verifica si una película ya está en favoritos
+  esFavorito(animeid: number): boolean {
+    return this.favorito.getFavoritos().some(fav => fav.mal_id === animeid);
+  }
+
   
 }

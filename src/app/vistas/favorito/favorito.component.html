@@ -1,0 +1,36 @@
+<div class="container mt-4 mb-5">
+    <h1 class="text-center text-warning">⭐ Mis Animes Favoritos</h1>
+  
+    @if (favoritos.length > 0) {
+      <div class="row justify-content-center mb-5">
+        @for (anime of favoritos; track anime.id) {
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-5 ">
+            <div class="card shadow-lg h-100 border-0 rounded-3 overflow-hidden mb-3">
+              <!-- Imagen del anime -->
+                <img
+                  [src]="anime.images.jpg.image_url"
+                  class="card-img-top rounded-top img-fluid"
+                  alt="{{ anime.title }}"
+                />
+  
+              <!-- Información del anime -->
+              <div class="card-body text-center bg-dark text-light">
+                <h5 class="card-title fw-bold">{{ anime.title }}</h5>
+              </div>
+  
+              <!-- ❌ Botón para eliminar -->
+              <div class="card-footer bg-transparent text-center">
+                <button class="btn btn-outline-danger w-100 fw-bold" (click)="eliminarFavorito(anime.mal_id)">
+                  ❌ Quitar de Favoritos
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="alert alert-warning text-center mt-4">
+        <p>No tienes animes favoritos aún.</p>
+      </div>
+    }
+  </div>
