@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AnimeService } from '../../servicios/anime.service'; // Asegúrate de importar tu servicio
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,28 +9,28 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./buscador.component.css'],
   imports: [FormsModule]
 })
-export class BuscadorComponent {
-  query: string = ''; // Guarda la consulta del usuario
+export class BuscadorComponent{
+  searchQuery: string = '';
   resultados: any[] = []; // Guarda los resultados de búsqueda
+
 
   constructor(private animeService: AnimeService, private router: Router) {}
 
   buscarAnime() {
-    if (this.query.trim() === '') {
-      this.resultados = [];
-      return;
+    if (this.searchQuery) {
+      this.animeService.buscarPorNombre(this.searchQuery).subscribe(response => {
+        this.resultados = response.data; // Guardar los resultados
+      });
     }
-
-    // 🔎 Llamar al servicio para buscar por nombre
-    this.animeService.buscarPorNombre(this.query).subscribe(response => {
-      this.resultados = response.data; // Guardar los resultados
-    });
   }
 
-  // 3️⃣ Función para redirigir a la página de detalles cuando se hace clic en un anime
+  //preguntar porque pasa
   irADetalle(anime: any) {
     this.resultados = []; // Limpiar la lista de resultados
-    this.query = anime.title; // Mostrar el nombre del anime en el input
-    this.router.navigate(['/anime', anime.id]); // Redirigir a la página de detalles
+    this.searchQuery = '';
+    this.router.navigate(['/anime', anime.mal_id]).then(() => {
+      window.location.reload(); // Recargar la página después de la navegación
+    });
   }
+  
 }

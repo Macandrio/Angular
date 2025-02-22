@@ -12,10 +12,10 @@
         <a class="nav-link" routerLink="/">INICIO</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="directorio" routerLinkActive="active">DIRECTORIO ANIME</a>
+        <a class="nav-link" routerLink="directorio">DIRECTORIO ANIME</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="contacto" routerLinkActive="active">CONTACTO</a>
+        <a class="nav-link" routerLink="contacto">CONTACTO</a>
       </li>     
     </ul>
 
@@ -23,9 +23,20 @@
     <app-buscador></app-buscador>
 
     <!-- Botón de Login -->
-    <button class="btn login-btn ms-3">
-      <i class="bi bi-person"></i> LOGIN
-    </button>
+    <div class="user-section">
+      @if (!isLoggedIn) {
+        <a routerLink="login">
+          <button class="btn btn-sm btn-primary">Iniciar Sesión</button>
+        </a>
+      } @else {
+        <div class="d-flex align-items-center">
+          <img src="https://cdn-icons-png.freepik.com/512/10561/10561629.png" alt="Usuario" class="user-icon" style="width: 30px; height: 30px;">
+          <button (click)="logout()" class="btn btn-sm btn-danger ms-2">
+            <i class="bi bi-box-arrow-right me-1"></i>Salir
+          </button>
+        </div>
+      }
+    </div>
 
   </div>
 </nav>

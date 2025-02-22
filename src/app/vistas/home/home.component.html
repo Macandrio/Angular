@@ -23,7 +23,7 @@
       <h5 class="section-title">📅 Últimos episodios</h5>
       <div class="anime-grid">
         @for (anime of lastEpisodes; track anime.id) {
-          <div class="anime-card">
+          <div class="anime-card" (click)="irADetalle(anime)">
             <img [src]="anime.image" class="anime-img" [alt]="anime.title">
             <div class="anime-info">
               <span class="episode-badge">Episodio {{ anime.lastEpisode }}</span>

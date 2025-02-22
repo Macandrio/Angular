@@ -1,0 +1,61 @@
+<div class="register-container py-5">
+  <div class="card shadow-lg p-5">
+    <h2 class="text-center mb-4">Formulario de Registro</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+      <!-- Usuario -->
+      <div class="mb-4">
+        <label for="username" class="form-label">Usuario</label>
+        <input id="username" type="text" class="form-control custom-input" formControlName="username" />
+        @if(registerForm.get('username')!.touched && registerForm.get('username')!.hasError('required')) {
+          <p class="text-danger small">El campo es obligatorio</p>
+        }
+        @if(registerForm.get('username')!.hasError('minlength')) {
+          <p class="text-danger small">El nombre de usuario debe tener al menos 4 caracteres</p>
+        }
+      </div>
+
+      <!-- Contraseña -->
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña</label>
+        <input id="password" type="password" class="form-control custom-input" formControlName="password" />
+        @if(registerForm.get('password')!.touched && registerForm.get('password')!.hasError('required')) {
+          <p class="text-danger small">El campo es obligatorio</p>
+        }
+        @if(registerForm.get('password')!.hasError('minlength')) {
+          <p class="text-danger small">La contraseña debe tener al menos 6 caracteres</p>
+        }
+      </div>
+
+      <!-- Confirmar Contraseña -->
+      <div class="mb-4">
+        <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+        <input id="confirmPassword" type="password" class="form-control custom-input" formControlName="confirmPassword" />
+        @if(registerForm.get('confirmPassword')!.touched && registerForm.get('confirmPassword')!.hasError('required')) {
+          <p class="text-danger small">El campo es obligatorio</p>
+        }
+        @if(registerForm.hasError('mismatch')) {
+          <p class="text-danger small">Las contraseñas no coinciden</p>
+        }
+      </div>
+
+      <!-- Botón de registrar -->
+      <button type="submit" class="btn btn-primary custom-btn" [disabled]="registerForm.invalid">Registrarse</button>
+
+      <!-- Mensaje de éxito -->
+      @if(successMessage) {
+        <div class="alert alert-success mt-3">
+          {{ successMessage }}
+        </div>
+      }
+
+      <!-- Mensaje de error -->
+      @if(errorMessage) {
+        <div class="alert alert-danger mt-3">
+          {{ errorMessage }}
+        </div>
+      }
+    </form>
+  </div>
+</div>

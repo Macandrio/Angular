@@ -1,6 +1,6 @@
 <div class="search-box d-flex align-items-center mx-3 position-relative">
   <!-- Campo de búsqueda -->
-  <input type="text" class="form-control search-input" placeholder="Buscar..." [(ngModel)]="query" (input)="buscarAnime()">
+  <input type="text" class="form-control search-input" placeholder="Buscar..." [(ngModel)]="searchQuery" (input)="buscarAnime()"/>
 
   <!-- Botón de búsqueda -->
   <button class="btn search-btn">
@@ -10,9 +10,9 @@
   <!-- Dropdown de resultados debajo del input -->
   @if (resultados.length > 0) {
     <ul class="resultados-dropdown position-absolute">
-      @for (anime of resultados; track anime.id) {
+      @for (anime of resultados; track anime.mal_id) {
         <li (click)="irADetalle(anime)">
-          {{ anime.title }} ({{ anime.type }})
+            {{ anime.title }} ({{ anime.type }})
         </li>
       }
     </ul>

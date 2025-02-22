@@ -1,0 +1,90 @@
+/* Estilos generales */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card .form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .custom-input {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .custom-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .custom-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .small {
+    font-size: 0.875rem;
+  }
+  
+  .alert {
+    margin-top: 20px;
+  }
+  
+  .btn-link {
+    background: none;
+    border: none;
+    color: #007bff;
+    text-decoration: underline;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  
+  .btn-link:hover {
+    color: #0056b3;
+  }
+  
+  .btn-warning {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .login-dropdown {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 300px;
+    z-index: 1000;
+    display: block; /* Asegura que se muestre */
+  }
+  
+  
+  .login-dropdown .card {
+    width: 100%;
+  }
+  
+  .btn-danger {
+    width: 100%;
+  }
+  

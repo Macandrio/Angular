@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { CarrouselComponent } from '../../componentes/carrousel/carrousel.component'; // ✅ IMPORTACIÓN CORREGIDA
 import { AnimeService } from '../../servicios/anime.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
   animes: any[] = [];       // Lista de animes en emisión
   lastEpisodes: any[] = []; // Últimos episodios subidos
 
-  constructor(private animeService: AnimeService) {}
+  constructor(private animeService: AnimeService, private router: Router ) {}
 
   ngOnInit(): void {
     this.getAnimes();
@@ -29,6 +30,13 @@ export class HomeComponent implements OnInit {
       error: (error) => {
         console.error('❌ Error al obtener animes:', error);
       },
+    });
+  }
+
+  //preguntar porque pasa
+  irADetalle(anime: any) {
+    this.router.navigate(['/anime', anime.id]).then(() => {
+      window.location.reload(); // Recargar la página después de la navegación
     });
   }
 }

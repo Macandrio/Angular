@@ -1,22 +1,89 @@
-<div class="detalle-container">
+<div class="container mt-5 mb-5">
   @if (anime) {
-    <h2>{{ anime.title }}</h2>
-    <p><strong>Tipo:</strong> {{ anime.type }}</p>
-    <p>{{ anime.description }}</p>
+    <div class="card shadow-lg p-4 mb-4">
+      <div class="row g-4">
+        
+        <!-- Imagen del anime -->
+        <div class="col-md-4 text-center">
+          <img [src]="anime.images.jpg.image_url" class="img-fluid rounded shadow" [alt]="anime.title">
+          <p class="mt-3 text-muted"><strong>Año:</strong> {{ anime.year || 'Desconocido' }}</p>
+        </div>
 
-    <!-- Mostrar los géneros si existen -->
-    @if (anime.genres.length > 0) {
-      <h4>Géneros:</h4>
-      <ul>
-        @for (genero of anime.genres; track genero.name) {
-          <li>{{ genero.name }}</li>
-        }
-      </ul>
-    }
+        <!-- Información del anime -->
+        <div class="col-md-8">
+          <div class="card-body">
+            <h2 class="card-title">{{ anime.title }}</h2>
+            <h5 class="text-muted">{{ anime.title_japanese }}</h5>
+            <p class="text-muted"><strong>Otros títulos:</strong> {{ anime.title_synonyms.join(', ') || 'Ninguno' }}</p>
 
-    <!-- Botón para volver al buscador -->
-    <a routerLink="/" class="btn btn-primary mt-3">Volver</a>
+            <p><strong>Tipo:</strong> {{ anime.type }}</p>
+            <p><strong>Episodios:</strong> {{ anime.episodes || 'Desconocido' }}</p>
+            <p><strong>Estado:</strong> {{ anime.status }}</p>
+            <p><strong>Duración:</strong> {{ anime.duration }}</p>
+            <p><strong>Clasificación:</strong> {{ anime.rating }}</p>
+            <p><strong>Popularidad:</strong> {{ anime.popularity }}</p>
+            <p><strong>Puntuación:</strong> {{ anime.score }} ({{ anime.scored_by }} votos)</p>
+            <p><strong>Favoritos:</strong> {{ anime.favorites }}</p>
+
+            <!-- Mostrar los géneros -->
+            @if (anime.genres.length > 0) {
+              <p><strong>Géneros:</strong> 
+                @for (genero of anime.genres; track genero.name) {
+                  <span class="badge bg-primary me-1">{{ genero.name }}</span>
+                }
+              </p>
+            }
+
+            <!-- Mostrar los estudios (con click para ver detalles) -->
+            @if (anime.studios.length > 0) {
+              <p><strong>Estudio:</strong> 
+                @for (studio of anime.studios; track studio.name) {
+                  <span class="badge bg-success me-1">{{ studio.name }}</span>
+                }
+              </p>
+            }
+
+            <!-- Mostrar los productores -->
+            @if (anime.producers.length > 0) {
+              <p><strong>Productores:</strong> 
+                @for (producer of anime.producers; track producer.name) {
+                  <span class="badge bg-warning text-dark me-1" (click)="irAProductor(producer)">{{ producer.name }}</span>
+                }
+              </p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sinopsis -->
+    <div class="card shadow-lg p-4 mb-4">
+      <h4>Sinopsis</h4>
+      <p>{{ anime.synopsis }}</p>
+    </div>
+
+    <!-- Sección de video -->
+    <div class="card shadow-lg p-4 mb-4 text-center">
+      <h4>Video</h4>
+      @if (videoUrl) {
+        <iframe
+          [src]="videoUrl"
+          width="560"
+          height="315"
+          frameborder="0"
+          allowfullscreen
+          class="rounded shadow"
+        ></iframe>
+      } @else {
+        <p>Video no disponible.</p>
+      }
+    </div>
+
+    <!-- Botón para volver -->
+    <div class="text-center mt-4">
+      <a routerLink="/" class="btn btn-secondary">Volver al buscador</a>
+    </div>
   } @else {
-    <p class="text-danger">No se encontró información del anime.</p>
+    <p class="text-danger text-center mt-4">No se encontró información del anime.</p>
   }
 </div>

@@ -1,0 +1,25 @@
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .badge {
+    font-size: 14px;
+    margin-right: 5px;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+  }
+  
+  .text-muted {
+    font-size: 14px;
+  }
+  

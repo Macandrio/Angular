@@ -46,7 +46,7 @@
     @for (anime of animesFiltrados; track anime.mal_id) {
       <div class="col-md-3 col-sm-6 mb-4">
         <div class="card">
-          <img [src]="anime.images.jpg.image_url" class="card-img-top" [alt]="anime.title">
+          <img [src]="anime.images.jpg.image_url" class="card-img-top" [alt]="anime.title" (click)="irADetalle(anime)">
           <div class="card-body">
             <h6 class="card-title">{{ anime.title }}</h6>
             <span class="badge bg-danger">Episodios: {{ anime.episodes ?? 'Desconocido' }}</span>

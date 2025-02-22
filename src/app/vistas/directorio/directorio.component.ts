@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimeService } from '../../servicios/anime.service';
-import { response } from 'express';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-directorio',
@@ -21,7 +21,7 @@ export class DirectorioComponent implements OnInit {
   mostrarGenero: boolean = false;  // Controla la visibilidad del menú de Género
 
 
-  constructor(private animeService: AnimeService) {}
+  constructor(private animeService: AnimeService, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarAnimes();   
@@ -135,7 +135,11 @@ export class DirectorioComponent implements OnInit {
     this.mostrarTipo = false; // Cierra el otro dropdown si está abierto
   }
   
-  
+  irADetalle(anime: any) {
+    this.router.navigate(['/anime', anime.mal_id]).then(() => {
+      window.location.reload(); // Recargar la página después de la navegación
+    });
+  }
   
   
   
