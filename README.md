@@ -29,8 +29,19 @@ mi-proyecto-angular/
 # Para el correo instalar 
 npm install emailjs-com --save
 npm install @emailjs/browser
+npm i --save-dev @types/animejs
 
+
+# Para el icono
+npm install animejs
+npm audit fix
+
+
+Standalone
 
 service_cpr167k
 template_oz9xc8k
 3P4d9q7htp8Pf57Pt
+
+
+console.warn("⚠️ La lista de animes está vacía, no se pueden obtener tipos.");
