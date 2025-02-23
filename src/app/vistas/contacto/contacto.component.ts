@@ -20,9 +20,9 @@ export class ContactoComponent {
     this.contactForm = this.fb.group({
       nombre: new FormControl('', Validators.required),
       apellidos: new FormControl('', Validators.required),
-      telefono: new FormControl('', Validators.required),
+      telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      mensaje: new FormControl('', Validators.required, )
+      mensaje: new FormControl('', Validators.required,)
     });
   }
 

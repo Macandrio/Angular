@@ -24,12 +24,12 @@ export class BuscadorComponent{
     }
   }
 
-  //preguntar porque pasa
   irADetalle(anime: any) {
     this.resultados = []; // Limpiar la lista de resultados
     this.searchQuery = '';
-    this.router.navigate(['/anime', anime.mal_id])
-    window.location.reload(); // Recargar la página después de la navegación
+    this.router.navigate(['/anime', anime.mal_id]).then(() => { //si falla la url .then no se ejecuta
+      window.location.reload(); // Recargar la página después de la navegación
+    });
   }
   
 }

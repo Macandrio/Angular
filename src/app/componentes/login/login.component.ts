@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';import { RegistroService } from '..
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  email = '';
+  usuario = '';
   password = '';
   isRegistering = false;
   errorMessage: string | null = null;
@@ -21,7 +21,7 @@ export class LoginComponent {
     this.errorMessage = null;
 
     if (this.isRegistering) {
-      const registrado = this.authService.register(this.email, this.password);
+      const registrado = this.authService.register(this.usuario, this.password);
       if (registrado) {
         alert('✅ Usuario registrado con éxito');
         this.isRegistering = false; // Cambiar a modo login
@@ -29,7 +29,7 @@ export class LoginComponent {
         this.errorMessage = "❌ El usuario ya existe.";
       }
     } else {
-      const loggedIn = this.authService.login(this.email, this.password);
+      const loggedIn = this.authService.login(this.usuario, this.password);
       if (loggedIn) {
         alert('✅ Sesión iniciada correctamente');
         this.router.navigate([''])

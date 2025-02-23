@@ -21,11 +21,15 @@ export class HomeComponent implements OnInit {
     this.getAnimes();
   }
 
+  //Animes en emision ordenados por epiodio
   getAnimes() {
-    this.animeService.getAnimesEnEmisionConUltimoCapitulo().subscribe({
+    this.animeService.getAnimesEnEmision().subscribe({
       next: (response) => {
-        this.animes = response.slice(0, 15);  // Solo mostramos 15 animes
-        this.lastEpisodes = response.sort((a:any, b:any) => b.lastEpisode - a.lastEpisode).slice(0, 15); 
+        // No transformamos los datos, usamos la API tal cual
+        this.animes = response.data.slice(0, 15); 
+        this.lastEpisodes = [...this.animes]
+          .sort((a: any, b: any) => (b.episodes || 0) - (a.episodes || 0))
+          .slice(0, 15);
       },
       error: (error) => {
         console.error('❌ Error al obtener animes:', error);
@@ -33,9 +37,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  //preguntar porque pasa
   irADetalle(anime: any) {
-    this.router.navigate(['/anime', anime.id]).then(() => {
+    this.router.navigate(['/anime', anime.mal_id]).then(() => { //si falla la url .then no se ejecuta
       window.location.reload(); // Recargar la página después de la navegación
     });
   }

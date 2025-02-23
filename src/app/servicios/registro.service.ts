@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
 export class RegistroService {
   private usuarios: { usuario: string, password: string, favoritos: any[] }[] = [];
   private usuarioActual: string | null = null;
@@ -39,7 +40,6 @@ export class RegistroService {
     if (usuarioValido) {
       this.usuarioActual = usuario;
       localStorage.setItem('usuarioActual', usuario);
-      window.location.reload();
       return true;
     }
     return false;

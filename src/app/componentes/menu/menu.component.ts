@@ -1,7 +1,7 @@
 import { Component,OnInit,ChangeDetectorRef } from '@angular/core';
 import { BuscadorComponent } from '../buscador/buscador.component';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { RegistroService } from '../../servicios/registro.service';
 
 
@@ -22,11 +22,13 @@ export class MenuComponent implements OnInit {
     private registroService: RegistroService,
   ) {}
 
+  //Para verificar al usuario si es null
   ngOnInit() {
     this.isLoggedIn = this.registroService.isLoggedIn();
     this.usuario = this.registroService.getUsuarioActual();
   }
 
+  //Para el boton de inciar sesion y salir
   logout() {
     this.registroService.logout();
     this.isLoggedIn = false;

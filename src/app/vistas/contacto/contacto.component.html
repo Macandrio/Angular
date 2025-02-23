@@ -28,6 +28,8 @@
         <input id="telefono" type="tel" class="form-control custom-input" formControlName="telefono" />
         @if(contactForm.get('telefono')!.touched && contactForm.get('telefono')!.hasError('required')) {
           <p class="text-danger small">El campo es obligatorio</p>
+        }@if(contactForm.get('telefono')!.hasError('pattern')) {
+          <p class="text-danger small">Ingrese un telefono válido</p>
         }
       </div>
 

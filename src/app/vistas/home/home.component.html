@@ -4,10 +4,11 @@
     <div class="col-md-3">
       <h5 class="section-title">📺 ANIMES EN EMISIÓN</h5>
       <ul class="list-group anime-list mb-5">
-        @for (anime of animes; track anime.id) {
+        @for (anime of animes; track anime.mal_id) {
           <li class="list-group-item d-flex justify-content-between align-items-center">
             {{ anime.title }}
-            <span class="badge bg-primary">ANIME</span>
+            <span class="badge bg-primary">{{ anime.type }}</span> 
+            <!-- Ahora mostramos el tipo de anime (TV, OVA, Movie) -->
           </li>
         }
       </ul>
@@ -22,11 +23,11 @@
     <div class="col-md-9">
       <h5 class="section-title">📅 Últimos episodios</h5>
       <div class="anime-grid">
-        @for (anime of lastEpisodes; track anime.id) {
+        @for (anime of lastEpisodes; track anime.mal_id) {
           <div class="anime-card" (click)="irADetalle(anime)">
-            <img [src]="anime.image" class="anime-img" [alt]="anime.title">
+            <img [src]="anime.images.jpg.image_url" class="anime-img" [alt]="anime.title">
             <div class="anime-info">
-              <span class="episode-badge">Episodio {{ anime.lastEpisode }}</span>
+              <span class="episode-badge">Episodio {{ anime.episodes ? anime.episodes : 'Desconocido' }}</span>
               <h6 class="anime-title">{{ anime.title }}</h6>
             </div>              
           </div>

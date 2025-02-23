@@ -18,6 +18,7 @@ export class CarrouselComponent implements OnInit {
     this.getEmisionAnimes();
   }
 
+  //para obtener los animes del carrousel
   getEmisionAnimes() {
     this.animeService.getAnimesEnEmision().subscribe({next: (response) => {
         this.animes = response.data.slice(0, 5);
@@ -27,6 +28,13 @@ export class CarrouselComponent implements OnInit {
       },
     });
   }
+
+
+  // getEmisionAnimes() {
+  //   this.animeService.getAnimesEnEmision().subscribe(response => {
+  //       this.animes = response.data.slice(0, 5);
+  //     })
+  // }
   
   
 }

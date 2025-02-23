@@ -12,11 +12,12 @@ export class DirectorioComponent implements OnInit {
   animes: any[] = [];
   animesFiltrados: any[] = [];  // Lista de animes filtrados
   
-  tiposDisponibles: string[] = []; // Lista de tipos de anime disponibles
   generosDisponibles: string[] = []; // Géneros únicos
   generosSeleccionados: string[] = []; // Géneros elegidos por el usuario
 
+  tiposDisponibles: string[] = []; // Lista de tipos de anime disponibles
   tipoSeleccionado: string = 'todos'; // Tipo seleccionado por defecto
+  
   mostrarTipo: boolean = false;  // Controla la visibilidad del menú de Tipo
   mostrarGenero: boolean = false;  // Controla la visibilidad del menú de Género
 
